@@ -1,0 +1,40 @@
+body {
+    min-height: 100vh;
+}
+
+#toast,
+#detailToast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    max-width: 360px;
+    padding: 16px;
+    border-radius: 4px;
+    z-index: 1000;
+    color: #fff;
+    display: none;
+}
+
+#toast.show,
+#detailToast.show {
+    display: block;
+}
+
+#toast.success,
+#detailToast.success {
+    background-color: #4caf50;
+}
+
+#toast.error,
+#detailToast.error {
+    background-color: #f44336;
+}
+
+dialog::backdrop,
+dialog::-webkit-backdrop {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.dialog-open {
+    overflow: hidden;
+}

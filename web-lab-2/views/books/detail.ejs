@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <%- include("../partials/head") %>
+    </head>
+    <body class="w3-light-grey" data-book-id="<%= book.id %>">
+        <%- include("../partials/navbar") %>
+        <main class="w3-content w3-padding" style="max-width: 960px;">
+            <div class="w3-margin-top">
+                <a href="/" class="w3-button w3-light-grey w3-round-large">
+                    <i class="fa fa-arrow-left"></i>
+                    <span class="w3-margin-left">К списку</span>
+                </a>
+            </div>
+
+            <section class="w3-margin-top">
+                <div class="w3-card w3-white">
+                    <header class="w3-container w3-blue-gray">
+                        <h2 class="w3-margin">Карточка книги</h2>
+                    </header>
+                    <div class="w3-container w3-padding-16">
+                        <p class="w3-large"><strong>Название:</strong> <%= book.title %></p>
+                        <p><strong>Автор:</strong> <%= book.author %></p>
+                        <p><strong>Дата выпуска:</strong> <%= book.publicationDate %></p>
+                        <% if (book.description) { %>
+                            <p><strong>Описание:</strong> <%= book.description %></p>
+                        <% } %>
+                        <p>
+                            <strong>Статус:</strong>
+                            <% if (book.available) { %>
+                                <span class="w3-tag w3-green w3-round">В наличии</span>
+                            <% } else { %>
+                                <span class="w3-tag w3-amber w3-round">Выдана</span>
+                            <% } %>
+                        </p>
+                        <% if (book.borrower) { %>
+                            <div class="w3-panel w3-pale-yellow w3-leftbar w3-border-amber">
+                                <p><strong>Читатель:</strong> <%= book.borrower.name %></p>
+                                <p><strong>Срок возврата:</strong> <%= book.borrower.dueDate %></p>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </section>
+
+            <section class="w3-margin-top">
+                <div class="w3-card w3-white">
+                    <header class="w3-container w3-blue-gray">
+                        <h2 class="w3-margin">Редактирование</h2>
+                    </header>
+                    <div class="w3-container">
+                        <form id="bookForm" class="w3-row-padding w3-padding-16">
+                            <div class="w3-margin-bottom">
+                                <label class="w3-text-grey" for="editTitle">Название</label>
+                                <input id="editTitle" name="title" type="text" class="w3-input w3-border" value="<%= book.title %>" required />
+                            </div>
+                            <div class="w3-margin-bottom">
+                                <label class="w3-text-grey" for="editAuthor">Автор</label>
+                                <input id="editAuthor" name="author" type="text" class="w3-input w3-border" value="<%= book.author %>" required />
+                            </div>
+                            <div class="w3-margin-bottom">
+                                <label class="w3-text-grey" for="editPublicationDate">Дата выпуска</label>
+                                <input id="editPublicationDate" name="publicationDate" type="date" class="w3-input w3-border" value="<%= book.publicationDate %>" required />
+                            </div>
+                            <div class="w3-margin-bottom">
+                                <label class="w3-text-grey" for="editDescription">Описание</label>
+                                <textarea id="editDescription" name="description" class="w3-input w3-border" rows="4"><%= book.description || "" %></textarea>
+                            </div>
+                            <div class="w3-margin-bottom">
+                                <button type="submit" class="w3-button w3-green">
+                                    <i class="fa fa-floppy-o"></i>
+                                    <span class="w3-margin-left">Сохранить</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section class="w3-margin-top w3-margin-bottom">
+                <div class="w3-card w3-white">
+                    <header class="w3-container w3-blue-gray">
+                        <h2 class="w3-margin">Действия</h2>
+                    </header>
+                    <div class="w3-container w3-padding-16">
+                        <% if (book.available) { %>
+                            <button id="detailCheckout" class="w3-button w3-blue-gray w3-margin-right">
+                                <i class="fa fa-user-plus"></i>
+                                <span class="w3-margin-left">Выдать</span>
+                            </button>
+                        <% } else { %>
+                            <button id="detailReturn" class="w3-button w3-green w3-margin-right">
+                                <i class="fa fa-undo"></i>
+                                <span class="w3-margin-left">Вернуть</span>
+                            </button>
+                        <% } %>
+                        <button id="detailDelete" class="w3-button w3-red">
+                            <i class="fa fa-trash"></i>
+                            <span class="w3-margin-left">Удалить</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <dialog id="detailCheckoutDialog" class="w3-card">
+            <form id="detailCheckoutForm" class="w3-container" method="dialog">
+                <h3 class="w3-text-blue-gray">
+                    <i class="fa fa-user-plus"></i>
+                    <span class="w3-margin-left">Выдать книгу</span>
+                </h3>
+                <p>
+                    <label class="w3-text-grey" for="detailBorrowerName">Читатель</label>
+                    <input id="detailBorrowerName" name="borrowerName" type="text" class="w3-input w3-border" required />
+                </p>
+                <p>
+                    <label class="w3-text-grey" for="detailDueDate">Дата возврата</label>
+                    <input id="detailDueDate" name="dueDate" type="date" class="w3-input w3-border" required />
+                </p>
+                <div class="w3-padding-16 w3-right-align">
+                    <button type="button" id="detailCancelCheckout" class="w3-button w3-light-grey w3-margin-right">Отмена</button>
+                    <button type="submit" class="w3-button w3-blue-gray">Выдать</button>
+                </div>
+            </form>
+        </dialog>
+
+        <div id="detailToast" class="w3-hide"></div>
+
+        <script src="/js/bookDetail.js" defer></script>
+    </body>
+</html>

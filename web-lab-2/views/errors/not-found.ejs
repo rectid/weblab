@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <%- include("../partials/head") %>
+    </head>
+    <body class="w3-light-grey">
+        <%- include("../partials/navbar") %>
+        <main class="w3-content w3-padding" style="max-width: 720px;">
+            <section class="w3-margin-top">
+                <div class="w3-card w3-white">
+                    <header class="w3-container w3-blue-gray">
+                        <h2 class="w3-margin">Не найдено</h2>
+                    </header>
+                    <div class="w3-container w3-padding-16">
+                        <p><%= message || "Страница не найдена" %></p>
+                        <a href="/" class="w3-button w3-blue-gray">
+                            <i class="fa fa-arrow-left"></i>
+                            <span class="w3-margin-left">На главную</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

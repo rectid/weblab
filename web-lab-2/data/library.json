@@ -1,0 +1,46 @@
+[
+  {
+    "id": "d1d5d885-1a9e-4c04-975f-1a8c48d9d2dd",
+    "title": "Война и мир",
+    "author": "Лев Толстой",
+    "publicationDate": "1869-01-01",
+    "description": "asdasdЭпический роман о судьбах людей и народов в эпоху наполеоновских войн.  вфывфds",
+    "available": false,
+    "createdAt": "2024-01-15T10:00:00.000Z",
+    "updatedAt": "2025-10-27T13:06:50.201Z",
+    "borrower": {
+      "name": "saв",
+      "dueDate": "2027-11-12"
+    }
+  },
+  {
+    "id": "6f5551c1-ff3a-4a12-9ce5-2ad2f8a89843",
+    "title": "Преступление и наказание",
+    "author": "Фёдор Достоевский",
+    "publicationDate": "1866-01-01",
+    "description": "Психологический роман о нравственном выборе и искуплении.",
+    "available": true,
+    "createdAt": "2024-02-01T12:00:00.000Z",
+    "updatedAt": "2025-10-27T12:38:10.107Z"
+  },
+  {
+    "id": "3d48a4d2-6853-4e03-90cc-0f115113313b",
+    "title": "Мастер и Маргарита",
+    "author": "Михаил Булгаков",
+    "publicationDate": "1967-01-01",
+    "description": "Роман о вечных темах добра, зла и любви.",
+    "available": true,
+    "createdAt": "2024-03-20T08:45:00.000Z",
+    "updatedAt": "2024-03-20T08:45:00.000Z"
+  },
+  {
+    "id": "88f2e8a7-0f67-4879-b78d-5531b2591f35",
+    "title": "тест",
+    "author": "иечd",
+    "publicationDate": "1111-12-12",
+    "description": "231asdфыва",
+    "available": true,
+    "createdAt": "2025-10-27T12:37:17.754Z",
+    "updatedAt": "2025-10-27T12:37:48.908Z"
+  }
+]

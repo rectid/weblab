@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <%- include("../partials/head") %>
+    </head>
+    <body class="w3-light-grey">
+        <%- include("../partials/navbar") %>
+        <main class="w3-content w3-padding" style="max-width: 1200px;">
+            <section class="w3-margin-top">
+                <div class="w3-card w3-white">
+                    <header class="w3-container w3-blue-gray">
+                        <h2 class="w3-margin">Фильтрация</h2>
+                    </header>
+                    <div class="w3-container">
+                        <form id="filtersForm" class="w3-row-padding w3-padding-16">
+                            <div class="w3-third w3-margin-bottom">
+                                <label class="w3-text-grey" for="availabilityFilter">Статус</label>
+                                <select id="availabilityFilter" name="availability" class="w3-select w3-border">
+                                    <option value="all" selected>Все</option>
+                                    <option value="available">В наличии</option>
+                                    <option value="checkedOut">Выданные</option>
+                                </select>
+                            </div>
+                            <div class="w3-third w3-margin-bottom">
+                                <label class="w3-text-grey" for="dueBeforeFilter">Вернуть до</label>
+                                <input id="dueBeforeFilter" name="dueBefore" type="date" class="w3-input w3-border" />
+                            </div>
+                            <div class="w3-third w3-margin-bottom">
+                                <label class="w3-text-grey" for="overdueFilter">Только просроченные</label>
+                                <input id="overdueFilter" name="overdue" class="w3-check" type="checkbox" />
+                            </div>
+                            <div class="w3-margin-top">
+                                <button id="applyFilters" type="submit" class="w3-button w3-blue-gray w3-margin-right">
+                                    <i class="fa fa-filter"></i>
+                                    <span class="w3-margin-left">Применить</span>
+                                </button>
+                                <button id="resetFilters" type="reset" class="w3-button w3-light-grey">
+                                    <i class="fa fa-undo"></i>
+                                    <span class="w3-margin-left">Сбросить</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section class="w3-margin-top">
+                <div class="w3-card w3-white">
+                    <header class="w3-container w3-blue-gray">
+                        <h2 class="w3-margin">Добавить книгу</h2>
+                    </header>
+                    <div class="w3-container">
+                        <form id="addBookForm" class="w3-row-padding w3-padding-16">
+                            <div class="w3-third w3-margin-bottom">
+                                <label class="w3-text-grey" for="title">Название</label>
+                                <input id="title" name="title" type="text" class="w3-input w3-border" required />
+                            </div>
+                            <div class="w3-third w3-margin-bottom">
+                                <label class="w3-text-grey" for="author">Автор</label>
+                                <input id="author" name="author" type="text" class="w3-input w3-border" required />
+                            </div>
+                            <div class="w3-third w3-margin-bottom">
+                                <label class="w3-text-grey" for="publicationDate">Дата выпуска</label>
+                                <input id="publicationDate" name="publicationDate" type="date" class="w3-input w3-border" required />
+                            </div>
+                            <div class="w3-margin-bottom w3-col s12">
+                                <label class="w3-text-grey" for="description">Описание</label>
+                                <textarea id="description" name="description" class="w3-input w3-border" rows="3" placeholder="Краткое описание"></textarea>
+                            </div>
+                            <div class="w3-col s12">
+                                <button type="submit" class="w3-button w3-green">
+                                    <i class="fa fa-plus"></i>
+                                    <span class="w3-margin-left">Сохранить</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section class="w3-margin-top">
+                <div class="w3-card w3-white">
+                    <header class="w3-container w3-blue-gray">
+                        <h2 class="w3-margin">Каталог</h2>
+                    </header>
+                    <div class="w3-container w3-padding-16">
+                        <div class="w3-responsive">
+                            <table class="w3-table w3-striped w3-bordered">
+                                <thead>
+                                    <tr class="w3-blue-gray">
+                                        <th>Название</th>
+                                        <th>Автор</th>
+                                        <th>Выпуск</th>
+                                        <th>Статус</th>
+                                        <th>Должен вернуть</th>
+                                        <th class="w3-center">Действия</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="booksTableBody">
+                                    <tr>
+                                        <td colspan="6" class="w3-center">Загрузка...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <dialog id="checkoutDialog" class="w3-card">
+            <form id="checkoutForm" class="w3-container" method="dialog">
+                <h3 class="w3-text-blue-gray">
+                    <i class="fa fa-user-plus"></i>
+                    <span class="w3-margin-left">Выдать книгу</span>
+                </h3>
+                <input type="hidden" name="bookId" id="checkoutBookId" />
+                <p>
+                    <label class="w3-text-grey" for="borrowerName">Читатель</label>
+                    <input id="borrowerName" name="borrowerName" type="text" class="w3-input w3-border" required />
+                </p>
+                <p>
+                    <label class="w3-text-grey" for="dueDate">Дата возврата</label>
+                    <input id="dueDate" name="dueDate" type="date" class="w3-input w3-border" required />
+                </p>
+                <div class="w3-padding-16 w3-right-align">
+                    <button type="button" id="cancelCheckout" class="w3-button w3-light-grey w3-margin-right">Отмена</button>
+                    <button type="submit" class="w3-button w3-blue-gray">Выдать</button>
+                </div>
+            </form>
+        </dialog>
+
+        <div id="toast" class="w3-hide"></div>
+
+        <script src="/js/books.js" defer></script>
+    </body>
+</html>

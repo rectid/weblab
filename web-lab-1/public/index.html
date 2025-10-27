@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Tetris</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <section id="start-screen" class="overlay">
+            <form id="player-form" class="card">
+                <h1>Тетрис</h1>
+                <label for="player-name">Введите имя</label>
+                <input id="player-name" name="player-name" type="text" maxlength="20" required placeholder="Игрок">
+                <button type="submit">Начать игру</button>
+            </form>
+        </section>
+
+        <section id="game" aria-live="polite" aria-label="Игровое поле тетриса">
+            <header class="hud">
+                <div><span class="label">Игрок:</span> <span id="player-label">—</span></div>
+                <div><span class="label">Очки:</span> <span id="score">0</span></div>
+                <div><span class="label">Линии:</span> <span id="lines">0</span></div>
+                <div><span class="label">Уровень:</span> <span id="level">1</span></div>
+            </header>
+
+            <div class="playfield">
+                <canvas id="board" width="300" height="600" role="img" aria-label="Поле 10 на 20 ячеек"></canvas>
+                <aside class="sidebar">
+                    <h2>Следующая фигура</h2>
+                    <canvas id="next" width="120" height="120" role="img" aria-label="Следующая фигура"></canvas>
+                    <div class="controls">
+                        <h3>Управление</h3>
+                        <p>← → — движение</p>
+                        <p>↑ — поворот</p>
+                        <p>↓ — ускорить</p>
+                        <p>Пробел — уронить</p>
+                        <p>P — пауза</p>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="game-over" class="overlay hidden" aria-live="assertive">
+            <div class="card">
+                <h2>Игра окончена</h2>
+                <p id="final-score">Очки: 0</p>
+                <button id="restart">Сыграть ещё</button>
+
+                <h3>Таблица рекордов (локально)</h3>
+                <table id="leaderboard" aria-label="Локальная таблица рекордов">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Имя</th>
+                            <th>Очки</th>
+                            <th>Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <script src="app.js" type="module"></script>
+</body>
+</html>
