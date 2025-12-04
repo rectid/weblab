@@ -1,0 +1,309 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #0d1b2a 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #e0e1dd;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.playfield {
+  position: relative;
+  border: 3px solid #415a77;
+  border-radius: 12px;
+  box-shadow: 
+    0 0 40px rgba(65, 90, 119, 0.4),
+    0 0 80px rgba(65, 90, 119, 0.2),
+    inset 0 0 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+  background-color: #0d1b2a;
+  image-rendering: pixelated;
+}
+
+.overlay-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.ui-layer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 640px;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #1b263b 0%, #0d1b2a 100%);
+  border: 2px solid #415a77;
+  border-radius: 10px;
+  font-size: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hud-left,
+.hud-right {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.hud-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(65, 90, 119, 0.3);
+  border-radius: 6px;
+}
+
+.hud-stat-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.health-bar {
+  width: 140px;
+  height: 14px;
+  background: linear-gradient(180deg, #1b263b 0%, #0d1b2a 100%);
+  border: 2px solid #415a77;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.health-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #e63946 0%, #f4a261 50%, #2a9d8f 100%);
+  background-size: 200% 100%;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(230, 57, 70, 0.5);
+}
+
+.leaderboard {
+  width: 100%;
+  max-width: 640px;
+  background: linear-gradient(135deg, #1b263b 0%, #0d1b2a 100%);
+  border: 2px solid #415a77;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.leaderboard h3 {
+  text-align: center;
+  margin-bottom: 16px;
+  color: #f4a261;
+  font-size: 20px;
+  text-shadow: 0 0 15px rgba(244, 162, 97, 0.4);
+}
+
+.leaderboard-list {
+  list-style: none;
+}
+
+.leaderboard-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid #415a77;
+  transition: background 0.2s ease;
+}
+
+.leaderboard-item:hover {
+  background: rgba(65, 90, 119, 0.2);
+}
+
+.leaderboard-item:last-child {
+  border-bottom: none;
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 40px;
+}
+
+.menu-title {
+  font-size: 56px;
+  font-weight: bold;
+  color: #f4a261;
+  text-shadow: 
+    0 0 30px rgba(244, 162, 97, 0.6),
+    0 4px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.menu-subtitle {
+  font-size: 18px;
+  color: #778da9;
+  text-align: center;
+  margin-top: -20px;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.menu-btn {
+  padding: 16px 56px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #e0e1dd;
+  background: linear-gradient(135deg, #415a77 0%, #1b263b 100%);
+  border: 2px solid #778da9;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.menu-btn:hover {
+  background: linear-gradient(135deg, #778da9 0%, #415a77 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(65, 90, 119, 0.5);
+}
+
+.menu-btn:active {
+  transform: translateY(-1px);
+}
+
+.controls-info {
+  font-size: 13px;
+  color: #778da9;
+  text-align: center;
+  line-height: 2;
+  background: rgba(13, 27, 42, 0.6);
+  padding: 16px 24px;
+  border-radius: 8px;
+  border: 1px solid #415a77;
+}
+
+.gameover-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px;
+}
+
+.gameover-title {
+  font-size: 42px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.gameover-title.victory {
+  color: #2a9d8f;
+  text-shadow: 0 0 30px rgba(42, 157, 143, 0.6);
+}
+
+.gameover-title.defeat {
+  color: #e63946;
+  text-shadow: 0 0 30px rgba(230, 57, 70, 0.6);
+}
+
+.gameover-stats {
+  font-size: 16px;
+  text-align: center;
+  line-height: 2;
+  color: #e0e1dd;
+  background: rgba(27, 38, 59, 0.8);
+  padding: 20px 30px;
+  border-radius: 10px;
+  border: 1px solid #415a77;
+}
+
+.toast {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #1b263b 0%, #0d1b2a 100%);
+  border: 2px solid #f4a261;
+  color: #e0e1dd;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 20px rgba(244, 162, 97, 0.3);
+  animation: fadeInOut 2.5s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(15px); }
+  15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.damage-flash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(230, 57, 70, 0.4) 0%, rgba(230, 57, 70, 0.1) 70%);
+  pointer-events: none;
+  animation: flashOut 0.4s ease forwards;
+}
+
+@keyframes flashOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.pause-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 27, 42, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  font-size: 36px;
+  color: #f4a261;
+  text-shadow: 0 0 20px rgba(244, 162, 97, 0.5);
+}
+
+.hidden {
+  display: none !important;
+}

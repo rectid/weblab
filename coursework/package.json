@@ -1,0 +1,24 @@
+{
+  "name": "tower-of-trials",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "2D платформер «Башня испытаний» со стелс-механиками и ИИ-врагами на чистом JavaScript",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "javascript",
+    "game",
+    "platformer",
+    "stealth",
+    "tiled",
+    "coursework"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}
