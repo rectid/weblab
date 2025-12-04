@@ -1,0 +1,26 @@
+{
+  "AMD": {
+    "isActive": true
+  },
+  "AMZN": {
+    "isActive": true
+  },
+  "CSCO": {
+    "isActive": true
+  },
+  "MSFT": {
+    "isActive": true
+  },
+  "QCOM": {
+    "isActive": true
+  },
+  "SBUX": {
+    "isActive": true
+  },
+  "TSLA": {
+    "isActive": true
+  },
+  "AAPL": {
+    "isActive": true
+  }
+}

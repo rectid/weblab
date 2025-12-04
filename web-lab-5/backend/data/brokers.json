@@ -1,0 +1,25 @@
+[
+  {
+    "id": "907057382",
+    "name": "Vladislav",
+    "initialBalance": 100000,
+    "currentBalance": 76631.87999999999,
+    "holdings": {
+      "AAPL": {
+        "quantity": 6,
+        "avgBuyPrice": 234.435
+      },
+      "AMD": {
+        "quantity": 123,
+        "avgBuyPrice": 155.31
+      }
+    }
+  },
+  {
+    "id": "23759201",
+    "name": "test",
+    "initialBalance": 100000,
+    "currentBalance": 100000,
+    "holdings": {}
+  }
+]
