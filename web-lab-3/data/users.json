@@ -1,0 +1,38 @@
+[
+  {
+    "id": "u1",
+    "fullName": "Иван Петров",
+    "birthDate": "1990-05-10",
+    "email": "ivan.petrov@example.com",
+    "photo": "https://placehold.co/96x96?text=IP",
+    "role": "admin",
+    "status": "active"
+  },
+  {
+    "id": "u2",
+    "fullName": "Анна Соколова",
+    "birthDate": "1992-01-22",
+    "email": "anna.sokolova@example.com",
+    "photo": "https://placehold.co/96x96?text=AS",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "id": "u3",
+    "fullName": "Дмитрий Иванов",
+    "birthDate": "1995-04-03",
+    "email": "dmitriy.ivanov@example.com",
+    "photo": "https://placehold.co/96x96?text=DI",
+    "role": "user",
+    "status": "blocked"
+  },
+  {
+    "id": "u4",
+    "fullName": "Мария Кузнецова",
+    "birthDate": "1998-08-19",
+    "email": "maria.kuznetsova@example.com",
+    "photo": "https://placehold.co/96x96?text=MK",
+    "role": "user",
+    "status": "pending"
+  }
+]

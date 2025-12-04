@@ -1,0 +1,32 @@
+<section class="card">
+  <div class="card-body">
+    <h3 class="card-title h5">Мои друзья</h3>
+    <ul class="list-group mb-3" *ngIf="friends.length; else emptyState">
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+        *ngFor="let friend of friends; trackBy: trackByUserId"
+      >
+        <div>
+          <div class="fw-semibold">{{ friend.fullName }}</div>
+          <div class="text-muted small">{{ friend.email }}</div>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-danger" (click)="onRemoveFriend(friend.id)">
+          Удалить
+        </button>
+      </li>
+    </ul>
+    <ng-template #emptyState>
+      <p class="text-muted mb-3">Пока нет друзей. Добавьте кого-нибудь из списка.</p>
+    </ng-template>
+
+    <div class="input-group">
+      <select class="form-select" [(ngModel)]="selectedFriendId">
+        <option [ngValue]="null">Выберите пользователя</option>
+        <option *ngFor="let user of availableUsers" [ngValue]="user.id">{{ user.fullName }} ({{ user.email }})</option>
+      </select>
+      <button class="btn btn-primary" type="button" (click)="onAddFriend()" [disabled]="!selectedFriendId">
+        Добавить
+      </button>
+    </div>
+  </div>
+</section>

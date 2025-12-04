@@ -1,0 +1,37 @@
+<div class="compose-container">
+  <header class="compose-header">
+    <h1>Написать сообщение</h1>
+    <a routerLink="/feed" class="btn btn-secondary">
+      ← Назад к ленте
+    </a>
+  </header>
+
+  <form [formGroup]="messageForm" (ngSubmit)="submit()" class="compose-form" novalidate>
+    <div class="form-group">
+      <label for="message-text">Ваше сообщение</label>
+      <textarea
+        id="message-text"
+        formControlName="text"
+        placeholder="Что у вас нового?"
+        rows="6"
+        maxlength="500"></textarea>
+      <div class="character-count">
+        {{ characterCount }}/{{ maxLength }}
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="messageForm.invalid || isSubmitting">
+        <span *ngIf="isSubmitting" class="loading"></span>
+        {{ isSubmitting ? 'Публикуем...' : 'Опубликовать' }}
+      </button>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+  </form>
+</div>

@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/feed">Социальная сеть</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="user$ | async as user">
+        <li class="nav-item">
+          <a routerLink="/feed" routerLinkActive="active" class="nav-link">Лента</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/compose" routerLinkActive="active" class="nav-link">Добавить новость</a>
+        </li>
+        <li class="nav-item" *ngIf="user.role === 'admin'">
+          <a class="nav-link" href="https://localhost:3443/users" target="_blank" rel="noreferrer">Модуль администрирования</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto" *ngIf="user$ | async as user; else guestLinks">
+        <li class="nav-item d-flex flex-column text-end text-white small">
+          <span class="fw-semibold">{{ user.fullName }}</span>
+          <span>{{ user.email }}</span>
+        </li>
+        <li class="nav-item ms-3">
+          <button class="btn btn-outline-light btn-sm" type="button" (click)="logout()">Выйти</button>
+        </li>
+      </ul>
+      <ng-template #guestLinks>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a routerLink="/register" class="nav-link">Регистрация</a>
+          </li>
+        </ul>
+      </ng-template>
+    </div>
+  </div>
+</nav>
+
+<main class="container my-4">
+  <router-outlet></router-outlet>
+</main>

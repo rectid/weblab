@@ -1,0 +1,71 @@
+<div class="feed-container">
+  <header class="feed-header">
+    <h1>Лента новостей</h1>
+    <div class="header-actions">
+      <a routerLink="/compose" class="btn btn-primary">
+        <span>✏️</span>
+        Написать пост
+      </a>
+      <button type="button" class="btn btn-secondary" (click)="logout()">
+        Выйти
+      </button>
+    </div>
+  </header>
+
+  <div class="feed-content">
+    <div class="messages-section">
+      <h2>Сообщения</h2>
+      <div class="messages-list">
+        <div *ngFor="let message of messages" class="message-item" appHighlight>
+          <div class="message-header">
+            <div class="avatar">
+              {{ message.authorName?.charAt(0)?.toUpperCase() || '?' }}
+            </div>
+            <div class="user-info">
+              <h3 class="name">{{ message.authorName || 'Неизвестный пользователь' }}</h3>
+              <p class="timestamp">{{ message.createdAt | date:'medium' }}</p>
+            </div>
+          </div>
+          <p class="message-text">{{ message.text }}</p>
+        </div>
+        <div *ngIf="messages.length === 0" class="empty-state">
+          <p>Пока нет сообщений. Будьте первым!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="friends-section">
+      <h2>Друзья</h2>
+      <div class="friends-list">
+        <div *ngFor="let user of users" class="friend-item" *ngIf="user.id !== auth.currentUser?.id">
+          <div class="avatar">
+            {{ user.fullName.charAt(0).toUpperCase() }}
+          </div>
+          <div class="friend-info">
+            <h3 class="name">{{ user.fullName }}</h3>
+            <p class="email">{{ user.email }}</p>
+          </div>
+          <div class="actions">
+            <button
+              *ngIf="!isFriend(user.id)"
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="addFriend(user.id)">
+              Добавить
+            </button>
+            <button
+              *ngIf="isFriend(user.id)"
+              type="button"
+              class="btn btn-secondary btn-sm"
+              (click)="removeFriend(user.id)">
+              Удалить
+            </button>
+          </div>
+        </div>
+        <div *ngIf="users.length <= 1" class="empty-state">
+          <p>Нет других пользователей</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

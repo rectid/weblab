@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <%- include('partials/head', { title: 'Участники' }) %>
+  <body>
+    <%- include('partials/navbar') %>
+    <main class="container">
+      <% const roleLabels = { admin: 'Администратор', user: 'Пользователь' }; %>
+      <% const statusLabels = { pending: 'Не подтверждён', active: 'Активный', blocked: 'Заблокированный' }; %>
+      <section class="app-card">
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+          <div>
+            <h1 class="h3 app-card__title mb-1">Участники сообщества</h1>
+            <p class="app-card__subtitle mb-0">Управляйте профилями, ролями и статусами пользователей</p>
+          </div>
+          <button type="button" class="btn btn-primary" data-add-user data-bs-toggle="modal" data-bs-target="#userEditModal">
+            Добавить участника
+          </button>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <div class="table-responsive">
+          <table class="table align-middle table-hover table-users">
+            <thead>
+              <tr>
+                <th scope="col">Фото</th>
+                <th scope="col">ФИО и email</th>
+                <th scope="col">Дата рождения</th>
+                <th scope="col">Роль</th>
+                <th scope="col">Статус</th>
+                <th scope="col" class="text-end">Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (users.length === 0) { %>
+                <tr>
+                  <td colspan="6" class="text-center text-muted py-4">Пользователи не найдены</td>
+                </tr>
+              <% } else { %>
+                <% users.forEach((user) => { %>
+                  <% const statusClass = `badge-status badge-status--${user.status}`; %>
+                  <tr>
+                    <td class="table-users__avatar">
+                      <img
+                        src="<%= user.photo || 'https://placehold.co/72x72?text=User' %>"
+                        alt="Фото <%= user.fullName %>"
+                        class="rounded-circle img-fluid"
+                        width="64"
+                        height="64"
+                      />
+                    </td>
+                    <td>
+                      <div class="fw-semibold"><%= user.fullName %></div>
+                      <div class="text-muted small"><%= user.email %></div>
+                    </td>
+                    <td><%= formatDate(user.birthDate) %></td>
+                    <td>
+                      <span class="badge text-bg-secondary"><%= roleLabels[user.role] || user.role %></span>
+                    </td>
+                    <td>
+                      <span class="<%= statusClass %>"><%= statusLabels[user.status] || user.status %></span>
+                    </td>
+                    <td class="text-end">
+                      <button type="button" class="btn btn-sm btn-outline-primary me-2" data-edit-user="<%= user.id %>">
+                        Редактировать
+                      </button>
+                      <button type="button" class="btn btn-sm btn-outline-danger" data-delete-user="<%= user.id %>">
+                        Удалить
+                      </button>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div
+      class="modal fade"
+      id="userEditModal"
+      tabindex="-1"
+      aria-labelledby="userEditModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <form
+          id="user-edit-form"
+          class="modal-content"
+          data-default-role="user"
+          data-default-status="pending"
+        >
+          <div class="modal-header">
+            <h2 class="modal-title fs-5" id="userEditModalLabel">Редактировать участника</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="userFullName" name="fullName" placeholder="ФИО" required />
+                  <label for="userFullName">ФИО</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="email" class="form-control" id="userEmail" name="email" placeholder="Email" required />
+                  <label for="userEmail">Email</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="date" class="form-control" id="userBirthDate" name="birthDate" placeholder="Дата рождения" />
+                  <label for="userBirthDate">Дата рождения</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="url" class="form-control" id="userPhoto" name="photo" placeholder="URL фотографии" />
+                  <label for="userPhoto">URL фотографии</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <select class="form-select" id="userRole" name="role">
+                    <% roleOptions.forEach((role) => { %>
+                      <option value="<%= role %>"><%= roleLabels[role] || role %></option>
+                    <% }) %>
+                  </select>
+                  <label for="userRole">Роль</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <select class="form-select" id="userStatus" name="status">
+                    <% statusOptions.forEach((status) => { %>
+                      <option value="<%= status %>"><%= statusLabels[status] || status %></option>
+                    <% }) %>
+                  </select>
+                  <label for="userStatus">Статус</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>

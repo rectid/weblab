@@ -1,0 +1,13 @@
+.card {
+  border-radius: 1rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(13, 110, 253, 0.08);
+}
+
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}

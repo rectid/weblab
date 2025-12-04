@@ -1,0 +1,150 @@
+/*
+ * Базовый файл стилей. Перезаписывается после сборки SASS.
+ */
+body {
+  background: #f3f4f6;
+  color: #212529;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+main {
+  padding: 2.5rem 0;
+}
+
+.app-card {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(13, 110, 253, 0.08);
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.app-card:hover {
+  box-shadow: 0 1.1rem 2rem rgba(13, 110, 253, 0.16);
+}
+
+.app-card__title {
+  color: #0d6efd;
+  font-weight: 600;
+}
+
+.app-card__subtitle {
+  color: #6c757d;
+  font-size: 0.925rem;
+}
+
+.table-users thead {
+  background: #d6e6ff;
+  color: #073c92;
+}
+
+.table-users tbody tr {
+  transition: background 0.2s ease-in-out;
+}
+
+.table-users tbody tr:nth-child(even) {
+  background: #eff4fa;
+}
+
+.table-users tbody tr:hover {
+  background: #e9f0ff;
+}
+
+.table-users__avatar {
+  width: 72px;
+}
+
+.badge-status {
+  font-weight: 500;
+}
+
+.badge-status--pending {
+  background: rgba(255, 193, 7, 0.2);
+  color: #856404;
+}
+
+.badge-status--active {
+  background: rgba(25, 135, 84, 0.2);
+  color: #1e7e34;
+}
+
+.badge-status--blocked {
+  background: rgba(220, 53, 69, 0.2);
+  color: #842029;
+}
+
+.friends-list {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.friends-list__item {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(13, 110, 253, 0.08);
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.friends-list__item img {
+  border-radius: 50%;
+  height: 96px;
+  margin-bottom: 0.75rem;
+  object-fit: cover;
+  width: 96px;
+}
+
+.feed-item {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(13, 110, 253, 0.08);
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+}
+
+.feed-item__avatar {
+  border-radius: 50%;
+  height: 64px;
+  object-fit: cover;
+  width: 64px;
+}
+
+.feed-item__body {
+  flex: 1 1 auto;
+}
+
+.feed-item__meta {
+  align-items: center;
+  color: #6c757d;
+  display: flex;
+  font-size: 0.85rem;
+  justify-content: space-between;
+}
+
+.form-floating label {
+  color: #6c757d;
+}
+
+.offcanvas-admin {
+  width: clamp(300px, 25vw, 420px);
+}
+
+@media (max-width: 768px) {
+  .app-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .feed-item {
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+}

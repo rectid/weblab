@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <%- include('partials/head', { title: 'Новости' }) %>
+  <body>
+    <%- include('partials/navbar') %>
+    <main class="container">
+      <% const formatDateTime = (value) => new Intl.DateTimeFormat('ru-RU', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value)); %>
+      <section class="app-card">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-6">
+            <label for="newsUserSelect" class="form-label fw-semibold">Выберите пользователя</label>
+            <select id="newsUserSelect" class="form-select">
+              <% users.forEach((user) => { %>
+                <option value="<%= user.id %>" <%= user.id === activeUserId ? 'selected' : '' %>>
+                  <%= user.fullName %>
+                </option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-6 text-md-end text-muted">
+            <p class="mb-0">
+              Лента показывает сообщения друзей выбранного пользователя в обратном хронологическом порядке.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <h2 class="h5 mb-4">Лента друзей</h2>
+        <% if (!feed.length) { %>
+          <p class="text-muted">У друзей пока нет новостей.</p>
+        <% } else { %>
+          <div class="d-grid gap-3">
+            <% feed.forEach((item) => { %>
+              <article class="feed-item">
+                <img
+                  src="<%= item.authorAvatar || 'https://placehold.co/64x64?text=User' %>"
+                  alt="<%= item.authorName %>"
+                  class="feed-item__avatar"
+                />
+                <div class="feed-item__body">
+                  <div class="feed-item__meta mb-2">
+                    <strong><%= item.authorName %></strong>
+                    <time datetime="<%= item.createdAt %>"><%= formatDateTime(item.createdAt) %></time>
+                  </div>
+                  <p class="mb-0"><%= item.text %></p>
+                </div>
+              </article>
+            <% }) %>
+          </div>
+        <% } %>
+      </section>
+
+      <section class="app-card">
+        <h2 class="h5 mb-3">Опубликовать сообщение</h2>
+        <form id="news-add-form" class="row g-3">
+          <div class="col-md-4">
+            <label for="newsAuthor" class="form-label">Автор сообщения</label>
+            <select id="newsAuthor" name="authorId" class="form-select" required>
+              <% users.forEach((user) => { %>
+                <option value="<%= user.id %>"><%= user.fullName %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-8">
+            <label for="newsText" class="form-label">Текст сообщения</label>
+            <textarea id="newsText" name="text" class="form-control" rows="3" placeholder="Что нового?" required></textarea>
+          </div>
+          <div class="col-12 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Опубликовать</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>

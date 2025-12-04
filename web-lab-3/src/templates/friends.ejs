@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <%- include('partials/head', { title: 'Друзья' }) %>
+  <body>
+    <%- include('partials/navbar') %>
+    <main class="container">
+      <% const activeUserId = users[0]?.id || null;
+         const friendIds = activeUserId ? (friendMap[activeUserId] || []) : [];
+         const friends = users.filter((user) => friendIds.includes(user.id));
+         const availableFriends = users.filter((user) => user.id !== activeUserId && !friendIds.includes(user.id));
+      %>
+      <section class="app-card">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-6">
+            <label for="friendUserSelect" class="form-label fw-semibold">Пользователь</label>
+            <select id="friendUserSelect" class="form-select">
+              <% users.forEach((user) => { %>
+                <option value="<%= user.id %>" <%= user.id === activeUserId ? 'selected' : '' %>>
+                  <%= user.fullName %>
+                </option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-6 text-md-end text-muted">
+            <p class="mb-0">
+              Управляйте списком друзей выбранного пользователя: добавляйте и удаляйте связи в один клик.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <div class="d-flex flex-column flex-lg-row justify-content-between gap-4">
+          <div class="flex-grow-1">
+            <h2 class="h5 mb-3">Друзья пользователя</h2>
+            <% if (!friends.length) { %>
+              <p class="text-muted">У пользователя пока нет друзей.</p>
+            <% } else { %>
+              <div class="friends-list">
+                <% friends.forEach((friend) => { %>
+                  <article class="friends-list__item">
+                    <img
+                      src="<%= friend.photo || 'https://placehold.co/96x96?text=User' %>"
+                      alt="Фото <%= friend.fullName %>"
+                      width="96"
+                      height="96"
+                    />
+                    <h3 class="h6 mb-1"><%= friend.fullName %></h3>
+                    <p class="text-muted small mb-3"><%= friend.email %></p>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-danger"
+                      data-remove-friend
+                      data-remove-friend-user="<%= activeUserId %>"
+                      data-remove-friend-target="<%= friend.id %>"
+                    >
+                      Удалить из друзей
+                    </button>
+                  </article>
+                <% }) %>
+              </div>
+            <% } %>
+          </div>
+          <aside class="flex-shrink-0">
+            <div class="border rounded p-3 bg-light">
+              <h2 class="h6 fw-semibold mb-3">Добавить друга</h2>
+              <form id="friend-add-form" class="d-grid gap-3">
+                <input type="hidden" name="userId" value="<%= activeUserId %>" />
+                <div>
+                  <label for="friendId" class="form-label">Кого добавить</label>
+                  <select id="friendId" name="friendId" class="form-select" <%= availableFriends.length ? '' : 'disabled' %>>
+                    <% if (!availableFriends.length) { %>
+                      <option value="">Нет доступных пользователей</option>
+                    <% } else { %>
+                      <% availableFriends.forEach((candidate) => { %>
+                        <option value="<%= candidate.id %>"><%= candidate.fullName %></option>
+                      <% }) %>
+                    <% } %>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary" <%= availableFriends.length ? '' : 'disabled' %>>
+                  Добавить
+                </button>
+              </form>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<section class="auth-card">
+  <header>
+    <h1 *ngIf="mode === 'register'">Регистрация</h1>
+    <h1 *ngIf="mode === 'login'">Вход</h1>
+    <nav>
+      <button type="button" class="link" (click)="switchMode('register')" [class.active]="mode === 'register'">
+        Регистрация
+      </button>
+      <button type="button" class="link" (click)="switchMode('login')" [class.active]="mode === 'login'">
+        Вход
+      </button>
+    </nav>
+  </header>
+
+  <form *ngIf="mode === 'register'" [formGroup]="registerForm" (ngSubmit)="submit()" novalidate>
+    <label>
+      <span>Имя</span>
+      <input formControlName="fullName" placeholder="Иван Иванов" />
+    </label>
+    <label>
+      <span>Email</span>
+      <input formControlName="email" type="email" placeholder="ivan@example.com" />
+    </label>
+    <label>
+      <span>Пароль</span>
+      <input formControlName="password" type="password" placeholder="Минимум 6 символов" />
+    </label>
+    <label>
+      <span>Дата рождения</span>
+      <input formControlName="birthDate" type="date" />
+    </label>
+    <label>
+      <span>Фото (URL)</span>
+      <input formControlName="photo" placeholder="https://..." />
+    </label>
+    <button type="submit" class="primary">Создать аккаунт</button>
+  </form>
+
+  <form *ngIf="mode === 'login'" [formGroup]="loginForm" (ngSubmit)="submit()" novalidate>
+    <label>
+      <span>Email</span>
+      <input formControlName="email" type="email" />
+    </label>
+    <label>
+      <span>Пароль</span>
+      <input formControlName="password" type="password" />
+    </label>
+    <button type="submit" class="primary">Войти</button>
+  </form>
+
+  <p *ngIf="authError" class="error">{{ authError }}</p>
+</section>
